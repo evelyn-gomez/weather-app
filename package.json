@@ -1,0 +1,19 @@
+{
+  "name": "weather-app",
+  "version": "1.0.0",
+  "description": "The odin project weather app",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/evelyn-gomez/weather-app.git"
+  },
+  "author": "evelyn-g",
+  "license": "none",
+  "bugs": {
+    "url": "https://github.com/evelyn-gomez/weather-app/issues"
+  },
+  "homepage": "https://github.com/evelyn-gomez/weather-app#readme"
+}
