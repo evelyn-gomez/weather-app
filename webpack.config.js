@@ -6,7 +6,8 @@ module.exports = {
   entry: './src/index.js',
   plugins: [
     new HtmlWebpackPlugin({
-      title: 'Output Management',
+      title: 'Weather App',
+      template: './src/template.html'
     }),
   ],
   output: {

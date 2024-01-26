@@ -15,7 +15,7 @@
   \**********************/
 /***/ (() => {
 
-eval("const main = document.querySelector(\".main\"); \nmain.textContent = 'hello'; \n\n//# sourceURL=webpack://weather-app/./src/index.js?");
+eval("console.log(\"hello mundo\");\n\n//# sourceURL=webpack://weather-app/./src/index.js?");
 
 /***/ })
 
