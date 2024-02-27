@@ -7,31 +7,15 @@
   <title> <%= htmlWebpackPlugin.options.title %></title>
 </head>
 <body>
-  <div class="top-header">
-    <h1>weatherapp</h1>
-  </div>
-  <div class="location-cont">
-    <div class="location-search-cont">
-      <input type="search" class="location-searchbox">
+  <div class="main">
+    <div class="search-container">
+      <input type="search" placeholder="location">
+      <button type="submit">Search</button>
     </div>
-    <div class="location-submit-cont">
-      <input type="submit" class="location-submit">
-    </div>
-  </div>
-  <div class="current-weather">
-    <div class="weather-location">
-    </div>
-    <div class="weather-change-scale">
-      <!-- <div class="farenheit">
-        <button class="farenheit-btn">
-          farenheit
-        </button>
-      </div>
-      <div class="celcius">
-        <button class="celcius-btn">
-          celcius
-        </button>
-      </div> -->
+    <div class="weather-info">
+      <div class="location"></div>
+      <div class="temp"></div>
+      <div class="description"></div>
     </div>
   </div>
 </body>
