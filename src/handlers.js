@@ -1,10 +1,12 @@
 import { dom } from "./dom";
 import { fetchWeather } from "./api";
 
-function setDefaultLocation(){
+async function setDefaultLocation(){
   const defaultLocation = "seattle"; 
-  fetchWeather(defaultLocation); 
-  return; 
+  const current = await fetchWeather(defaultLocation); 
+  console.log(current);
+  
+  dom.weatherToday.textContent = `${current}`
 }
 
 function searchLocation(){

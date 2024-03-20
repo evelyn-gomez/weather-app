@@ -1,84 +1,115 @@
-const weather = {
-  apiKey: "9b80e0ff9b8349449c4181957231212",
-  apiURL:  "http://api.weatherapi.com/v1/", 
-  data: {
-    location: {
-      name: String,
-      region: String,
-      country: String ,
-      lat: "lat",
-      lon:"lon",
-      "tz_id": "Europe/London",
-      "localtime_epoch": 1709073284,
-      "localtime": "2024-02-27 22:34"
-    }
+import weather_conditions from "./assets/weather_conditions";
+
+const weatherConditionsHeader = weather_conditions.slice(0,1); 
+const weatherConditionsOnly = weather_conditions.slice(1); 
+
+const weatherAPI = {
+  KEY: "9b80e0ff9b8349449c4181957231212",
+  URL:  "http://api.weatherapi.com/v1/", 
+};
+
+function throwWeatherDataError(currentWeatherError, forecastWeatherError){
+  if(currentWeatherError){
+    throw new Error(currentWeatherError); // need specific error type
+  }else{
+    throw new Error(forecastWeatherError); //need specific error type 
   }
 }
-// {
-//   "location": {
-//       "name": "London",
-//       "region": "City of London, Greater London",
-//       "country": "United Kingdom",
-//       "lat": 51.52,
-//       "lon": -0.11,
-//       "tz_id": "Europe/London",
-//       "localtime_epoch": 1710264706,
-//       "localtime": "2024-03-12 17:31"
-//   },
-//   "current": {
-//       "last_updated_epoch": 1710264600,
-//       "last_updated": "2024-03-12 17:30",
-//       "temp_c": 14.0,
-//       "temp_f": 57.2,
-//       "is_day": 1,
-//       "condition": {
-//           "text": "Partly cloudy",
-//           "icon": "//cdn.weatherapi.com/weather/64x64/day/116.png",
-//           "code": 1003
-//       },
-//       "wind_mph": 15.0,
-//       "wind_kph": 24.1,
-//       "wind_degree": 260,
-//       "wind_dir": "W",
-//       "pressure_mb": 1010.0,
-//       "pressure_in": 29.83,
-//       "precip_mm": 0.01,
-//       "precip_in": 0.0,
-//       "humidity": 88,
-//       "cloud": 50,
-//       "feelslike_c": 12.8,
-//       "feelslike_f": 55.0,
-//       "vis_km": 10.0,
-//       "vis_miles": 6.0,
-//       "uv": 3.0,
-//       "gust_mph": 15.9,
-//       "gust_kph": 25.5,
-//       "air_quality": {
-//           "co": 237.0,
-//           "no2": 15.6,
-//           "o3": 49.4,
-//           "so2": 4.7,
-//           "pm2_5": 1.9,
-//           "pm10": 2.4,
-//           "us-epa-index": 1,
-//           "gb-defra-index": 1
-//       }
-//   }
-// }
+
+function getForecastForDays(days){
+  const daysLength = days.length; 
+  let forecastDaysArr =[]; 
+
+  for(let i=0; i < daysLength; i++){
+    let forecastDay = {
+      date: days[i].date,
+      day: {
+        maxtemp_c: days[i].day.maxtemp_c,
+        maxtemp_f: days[i].day.maxtemp_f, 
+        mintemp_c: days[i].day.mintemp_c, 
+        mintemp_f: days[i].day.mintemp_f,
+      },
+      astro:{
+        is_moon_up: days[i].astro.is_moon_up, 
+        is_sun_up: days[i].astro.is_sun_up,       
+      }
+    }
+    forecastDaysArr.push(forecastDay); 
+  }
+
+  return forecastDaysArr; 
+}
+
+function  storeData(currentData, forecastData){
+  const currentWeather = {
+    location: {
+      name: ()=>{
+        // ideally would make sure all properties of 
+        if(currentData.location.name === typeof String){
+          location.name = currentData.location.name; 
+        }else{
+          throw Error("not a string"); 
+        }
+      }, 
+      region: currentData.location.region,
+      country: currentData.location.country ,
+    },
+    current:{
+      last_updated: currentData.current.last_updated, 
+      temp_f: currentData.current.temp_f,
+      temp_c: currentData.current.temp_c,
+      is_day: currentData.current.is_day,
+      condition: {
+        text: currentData.current.condition.text,
+        icon: currentData.current.condition.icon,
+        code: currentData.current.condition.code, 
+      },
+      wind_mph: currentData.current.wind_mph,
+      wind_kph: currentData.current.wind_kph, 
+      humidity: currentData.current.humidity,
+      cloud: currentData.current.cloud,
+      feelslike_c: currentData.current.feelslike_c, 
+      feelslike_f: currentData.current.feelslike_f, 
+      humidity: currentData.current.humidity,
+      uv: currentData.current.uv,
+      gust_mph: currentData.current.mph, 
+      gush_kph: currentData.current.kph, 
+      air_quality: {
+        co: currentData.current.air_quality.co, 
+        no2: currentData.current.air_quality.no2,
+        o3: currentData.current.air_quality.o3, 
+        so2: currentData.current.air_quality.so2, 
+      }
+    }
+  }
+
+  const forecastWeather = {
+    forecast: {
+      forecastday: getForecastForDays(forecastData.forecast.forecastday),
+    }
+  }
+  console.log(currentWeather,forecastWeather); 
+  return {currentWeather, forecastWeather}; 
+}
 
 
 export async function fetchWeather(location) {
-  const url = `${weather.apiURL}current.json?key=${weather.apiKey}&q=${location}&aqi=yes`;
-  try {
-    const response = await fetch(url);
-    const data = await response.json();
+  const currentWeatherURL = `${weatherAPI.URL}current.json?key=${weatherAPI.KEY}&q=${location}&aqi=yes`;
+  const forecastWeatherURL = `${weatherAPI.URL}forecast.json?key=${weatherAPI.KEY}&q=${location}&days=3&aqi=yes&alerts=no`; 
 
-    if (data.error) {
-      throw new Error(data.error); // More specific error type
+  try {
+    const currentWeatherResponse = await fetch(currentWeatherURL,  { mode: "cors" });
+    const forecastWeatherResponse = await fetch(forecastWeatherURL,  { mode: "cors" }); 
+
+    const currentWeatherData = await currentWeatherResponse.json();
+    const forecastWeatherData = await forecastWeatherResponse.json(); 
+
+    if(currentWeatherData.error || forecastWeatherData.error) {
+      throwWeatherDataError(currentWeatherData.error, forecastWeatherData.error)
     }
 
-    console.log(data);
-  } catch (error) {
+    return storeData(currentWeatherData, forecastWeatherData); 
+  } catch(error) {
     console.error("Error fetching weather:", error);
   }
 }
