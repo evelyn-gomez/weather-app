@@ -1,3 +1,5 @@
+import weather_conditions from './weather_conditions';
+
 export default [
   ['code','day','night','icon'],
   [1000,'Sunny','Clear',113],

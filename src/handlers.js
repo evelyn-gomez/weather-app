@@ -3,10 +3,12 @@ import { fetchWeather } from "./api";
 
 async function setDefaultLocation(){
   const defaultLocation = "seattle"; 
-  const current = await fetchWeather(defaultLocation); 
-  console.log(current);
-  
-  dom.weatherToday.textContent = `${current}`
+  const weather = await fetchWeather(defaultLocation); 
+  const today = weather.currentWeather; 
+  const forecast = weather.forecastWeather; 
+
+  console.log(weather); 
+  dom.setToday(today); 
 }
 
 function searchLocation(){

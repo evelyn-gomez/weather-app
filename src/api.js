@@ -1,8 +1,3 @@
-import weather_conditions from "./assets/weather_conditions";
-
-const weatherConditionsHeader = weather_conditions.slice(0,1); 
-const weatherConditionsOnly = weather_conditions.slice(1); 
-
 const weatherAPI = {
   KEY: "9b80e0ff9b8349449c4181957231212",
   URL:  "http://api.weatherapi.com/v1/", 
@@ -40,19 +35,13 @@ function getForecastForDays(days){
   return forecastDaysArr; 
 }
 
-function  storeData(currentData, forecastData){
+function  storeData(currentData, forecastData){ 
+  // console.log(`json data - current: ${}, forecast: ${}`)
   const currentWeather = {
     location: {
-      name: ()=>{
-        // ideally would make sure all properties of 
-        if(currentData.location.name === typeof String){
-          location.name = currentData.location.name; 
-        }else{
-          throw Error("not a string"); 
-        }
-      }, 
-      region: currentData.location.region,
-      country: currentData.location.country ,
+      name: currentData.location.name.toString(), 
+      region: currentData.location.region.toString(),
+      country: currentData.location.country.toString() ,
     },
     current:{
       last_updated: currentData.current.last_updated, 
@@ -80,15 +69,14 @@ function  storeData(currentData, forecastData){
         o3: currentData.current.air_quality.o3, 
         so2: currentData.current.air_quality.so2, 
       }
-    }
+    } 
   }
-
   const forecastWeather = {
     forecast: {
       forecastday: getForecastForDays(forecastData.forecast.forecastday),
     }
   }
-  console.log(currentWeather,forecastWeather); 
+
   return {currentWeather, forecastWeather}; 
 }
 
@@ -104,10 +92,11 @@ export async function fetchWeather(location) {
     const currentWeatherData = await currentWeatherResponse.json();
     const forecastWeatherData = await forecastWeatherResponse.json(); 
 
+
     if(currentWeatherData.error || forecastWeatherData.error) {
       throwWeatherDataError(currentWeatherData.error, forecastWeatherData.error)
     }
-
+    
     return storeData(currentWeatherData, forecastWeatherData); 
   } catch(error) {
     console.error("Error fetching weather:", error);
