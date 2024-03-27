@@ -1,7 +1,10 @@
-import weather_conditions from './weather_conditions';
+const dayImages = require.context('./assets/weather/64x64/day', true, /\.png$/); 
+const nightImages = require.context('./assets/weather/64x64/night', true, /\.png$/)
 
-export default [
-  ['code','day','night','icon'],
+const dayImageList = dayImages.keys().map(dayImages);
+const nightImageList = nightImages.keys().map(nightImages); 
+
+const weatherConditions =  [
   [1000,'Sunny','Clear',113],
   [1003,"Partly cloudy","Partly cloudy",116],
   [1006,'Cloudy','Cloudy',119],
@@ -51,3 +54,32 @@ export default [
   [1279,"Patchy light snow with thunder","Patchy light snow with thunder",392],
   [1282,"Moderate or heavy snow with thunder","Moderate or heavy snow with thunder",395],
 ];
+
+class Condition{
+  constructor(code, day, night, icon, dayImage, nightImage){
+    this.code = code, 
+    this.day = day, 
+    this.night = night, 
+    this.icon = icon,
+    this.dayImage = dayImage,
+    this.nightImage = nightImage
+  }
+}
+
+const conditions = []
+for(let i=0; i < weatherConditions.length; i++){
+  let condition = new Condition();
+  condition.code = weatherConditions[i][0]; 
+  condition.day = weatherConditions[i][1];
+  condition.night = weatherConditions[i][2];
+  condition.icon = weatherConditions[i][3]; 
+  condition.dayImage = dayImageList[i]; 
+  condition.nightImage = nightImageList[i]; 
+  
+  conditions.push(condition); 
+}
+
+
+export { conditions }
+
+
