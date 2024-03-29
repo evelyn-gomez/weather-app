@@ -5,13 +5,13 @@ class DOM{
   }
 
 
-  setToday(weather){
+  setCurrent(weather){
     const todayContainer = document.querySelector(".weather-info-today");
     const locationElem= document.querySelector(".location");
     const lastUpdatedElem = document.querySelector(".last-updated"); 
     const temperatureElem = document.querySelector(".temp "); 
     const descriptionElem = document.querySelector(".description"); 
-    const image = document.querySelector("img"); 
+    const image = document.querySelector(".current-icon"); 
 
     const current = weather.current; 
     const location = weather.location; 
@@ -25,6 +25,10 @@ class DOM{
     image.alt = current.condition.text.toString(); 
     todayContainer.appendChild(image);
   }
+
+  // setForecast(weat){
+
+  // }
 }
 
 

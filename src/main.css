@@ -1,3 +1,28 @@
 .top-header{
   background-color: #627e75,;
 }
+
+/* <body>
+  <div class="main">
+    <div class="top-nav">
+      <div class="my-weather">
+      </div>
+      <div class="search-container">
+        <input type="search" placeholder="location">
+        <button type="submit">Search</button>
+      </div>
+    </div>
+    <div class="weather-info-today">
+      <div class="location"></div>
+      <div class="last-updated"></div>
+      <div class="temp">
+      </div>
+      <div class="description"></div>
+      <img class="current-icon">
+    </div>
+  </div>
+</body>
+<footer>
+  Powered by <a href="https://www.weatherapi.com/" title="Weather API">WeatherAPI.com</a>
+</footer>
+</html> */
