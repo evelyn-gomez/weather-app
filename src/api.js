@@ -59,7 +59,6 @@ function  storeData(currentData, forecastData){
       cloud: currentData.current.cloud,
       feelslike_c: currentData.current.feelslike_c, 
       feelslike_f: currentData.current.feelslike_f, 
-      humidity: currentData.current.humidity,
       uv: currentData.current.uv,
       gust_mph: currentData.current.mph, 
       gush_kph: currentData.current.kph, 
