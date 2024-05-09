@@ -1,33 +1,34 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" type="text/css" href="/node_modules/normalize.css/normalize.css">
-  <link rel="stylesheet" href="/src/main.css">
-  <title> Weather App</title>
-<script defer src="main.js"></script></head>
-<body>
-  <div class="main">
-    <div class="top-nav">
-      <div class="my-weather">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- <link rel="stylesheet" href="/src/output.css" /> -->
+    <link rel="stylesheet" href="../dist/style.css">
+    <title>Weather App</title>
+  <script defer src="main.js"></script></head>
+  <body >
+    <div class="outer-main border-transparent">
+      <div class="main grid grid-rows-3 items-center">
+        <div class="top-nav flex gap-4 items-center bg-light-green ">
+          <div class="top-header pl-10"></div>
+          <div class="search-container flex gap-3 pl-10">
+            <input class=" border-solid border-black border-2 rounded-md items-center pl-2 outline-offset-0" type="search" placeholder="location" />
+            <button class="border-solid border-black border-2 rounded-md min-w-16" type="submit">Search</button>
+          </div>  
+        </div>
+        <div class="weather-info-today row-span-2 bg-light-blue ">
+          <div class="location font-bold text-indigo-700 pl-3"></div>
+          <div class="last-updated text-pink-700 pl-3"></div>
+          <div class="temp pl-3"></div>
+          <div class="description pl-3"></div>
+          <img class="current-icon pl-3" />
+        </div>
       </div>
-      <div class="search-container">
-        <input type="search" placeholder="location">
-        <button type="submit">Search</button>
-      </div>
-    </div>
-    <div class="weather-info-today">
-      <div class="location"></div>
-      <div class="last-updated"></div>
-      <div class="temp">
-      </div>
-      <div class="description"></div>
-      <img class="current-icon">
-    </div>
-  </div>
-</body>
-<footer>
-  Powered by <a href="https://www.weatherapi.com/" title="Weather API">WeatherAPI.com</a>
-</footer>
+   </div>
+  </body>
+  <footer>
+    Powered by
+    <a href="https://www.weatherapi.com/" title="Weather API">WeatherAPI.com</a>
+  </footer>
 </html>
